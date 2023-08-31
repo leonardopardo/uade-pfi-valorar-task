@@ -38,6 +38,8 @@ export class MeliTask {
 
         let result = await meliService.get(meliCode);
 
+        if (!result.results) throw new Error(`Ocurrió un error al obtener los datos de Meli.`);
+          
         meliService.insert(result.results);
 
         let total = result.paging.total > 1000 ? 1000 : result.paging.total;

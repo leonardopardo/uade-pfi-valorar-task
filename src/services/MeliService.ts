@@ -38,7 +38,7 @@ export class MeliService {
     try {
       for (let i = 0; i < list.length; i++) {
         const element = list[i];
-        await this.insertOne(element);
+        this.insertOne(element);
       }
     } catch (err) {
       throw new Error(

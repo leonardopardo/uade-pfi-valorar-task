@@ -8,7 +8,6 @@ import path = require("path");
 import "reflect-metadata";
 import { MeliRouter } from "./routes/MeliRouter";
 import { CabapropRouter } from "./routes/CabapropRouter";
-import { CabapropTask } from "./tasks/CabapropTask";
 import { MeliTask } from "./tasks/MeliTask";
 import { task } from "./crons/MeliCron";
 
@@ -45,7 +44,7 @@ class App {
     new MeliTask().run();
 
     // initialize cron
-    task.start();
+    //task.start();
   }
 
   private initializeRoutes() {
