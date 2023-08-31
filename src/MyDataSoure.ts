@@ -2,6 +2,7 @@ import "reflect-metadata";
 import * as dotenv from 'dotenv';
 import path = require('path');
 import { DataSource } from "typeorm";
+import { MeliModel } from "./models/MeliModel";
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env')
@@ -30,7 +31,9 @@ const MongoDatasource = new DataSource({
   database: process.env.MONGO_DATABASE,
   synchronize: false,
   logging: false,
-  entities: [],
+  entities: [
+    MeliModel
+  ],
   migrations: ["src/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
   useUnifiedTopology: true,

@@ -1,115 +1,118 @@
-import { Column, Entity } from "typeorm"
+import { Column, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
-@Entity()
+@Entity('MeliStaging')
 export class MeliModel {
-    @Column()
-    id:string
-    
-    @Column()
-    title:string
-    
-    @Column()
-    condition:string
+  @PrimaryColumn()
+  id: string;
 
-    @Column()
-    thumbnail_id:string
+  @Column()
+  title: string;
 
-    @Column()
-    catalog_product_id:any
+  // @Column()
+  // condition:string
 
-    @Column()
-    listing_type_id:string
+  // @Column()
+  // thumbnail_id:string
 
-    @Column()
-    permalink:string
+  // @Column()
+  // catalog_product_id:any
 
-    @Column()
-    buying_mode:string
+  // @Column()
+  // listing_type_id:string
 
-    @Column()
-    site_id:string
+  // @Column()
+  // permalink:string
 
-    @Column()
-    category_id:string
+  // @Column()
+  // buying_mode:string
 
-    @Column()
-    domain_id:string
+  // @Column()
+  // site_id:string
 
-    @Column()
-    thumbnail:string
+  // @Column()
+  // category_id:string
 
-    @Column()
-    currency_id:string
+  // @Column()
+  // domain_id:string
 
-    @Column()
-    order_backend:number
+  // @Column()
+  // thumbnail:string
 
-    @Column()
-    price:number
+  // @Column()
+  // currency_id:string
 
-    @Column()
-    original_price:number
+  // @Column()
+  // order_backend:number
 
-    @Column()
-    sale_price:number
+  // @Column()
+  // price: number;
 
-    @Column()
-    sold_quantity:number
+  // @Column()
+  // original_price:number
 
-    @Column()
-    available_quantity:number
+  // @Column()
+  // sale_price:number
 
-    @Column()
-    official_store_id:number
+  // @Column()
+  // sold_quantity:number
 
-    @Column()
-    use_thumbnail_id:boolean
+  // @Column()
+  // available_quantity:number
 
-    @Column()
-    accepts_mercadopago:boolean
+  // @Column()
+  // official_store_id:number
 
-    @Column()
-    tags:[]
+  // @Column()
+  // use_thumbnail_id:boolean
 
-    @Column()
-    shipping:{}
+  // @Column()
+  // accepts_mercadopago:boolean
 
-    @Column()
-    stop_time:string
+  // @Column()
+  // tags:[]
 
-    @Column()
-    seller:{}
+  // @Column()
+  // shipping:{}
 
-    @Column()
-    seller_address:{}
- 
-    @Column()
-    address:{}
- 
-    @Column()
-    attributes:[]
-   
-    @Column()
-    location:{}
-   
-    @Column()
-    seller_contact:{}
+  // @Column()
+  // stop_time:string
 
-    @Column()
-    installments:any
+  // @Column()
+  // seller:{}
 
-    @Column()
-    winner_item_id:number
+  // @Column()
+  // seller_address:{}
 
-    @Column()
-    catalog_listing:boolean
+  // @Column()
+  // address:{}
 
-    @Column()
-    discounts:any
+  // @Column()
+  // attributes:[]
 
-    @Column()
-    promotions:[]
+  // @Column()
+  // location:{}
 
-    @Column()
-    inventory_id:number
+  // @Column()
+  // seller_contact:{}
+
+  // @Column()
+  // installments:any
+
+  // @Column()
+  // winner_item_id:number
+
+  // @Column()
+  // catalog_listing:boolean
+
+  // @Column()
+  // discounts:any
+
+  // @Column()
+  // promotions:[]
+
+  // @Column()
+  // inventory_id:number
+
+  @UpdateDateColumn()
+  last_update: Date;
 }

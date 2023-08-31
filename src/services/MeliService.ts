@@ -1,41 +1,58 @@
-import fetch from 'node-fetch';
-import { MongoDatasource } from '../MyDataSoure';
+import * as fetch from "node-fetch";
+import { MongoDatasource } from "../MyDataSoure";
+import { DataSource, Repository } from "typeorm";
+import { MeliModel } from "../models/MeliModel";
 
 export class MeliService {
-  private dataSource: MongoDatasource = MongoDatasource.manager;
-  
-  private city: string;
-  private baseUrl: string = process.env.SERVICE_MELI_BASE_PATH
+  private baseUrl: string = process.env.SERVICE_MELI_BASE_PATH;
+
+  private city: string = process.env.SERVICE_MELI_CITY;
+
+  private ds: DataSource = MongoDatasource;
+
+  private repository: Repository<MeliModel>;
+
+  private elements: MeliModel[];
 
   constructor() {
-    this.city = process.env.SERVICE_MELI_CITY;
+    this.repository = this.ds.getRepository(MeliModel);
+    this.elements = [];
   }
 
-  async get(category: string, offset: number = 0, limit: number = 50): Promise<any> {
+  public async get(
+    category: string,
+    offset: number = 0,
+    limit: number = 50
+  ): Promise<any> {
     try {
-      const service = `${this.baseUrl}category=${category}&city=${this.city}&offset=${offset}&limit=${limit}`
+      const service = `${this.baseUrl}category=${category}&city=${this.city}&offset=${offset}&limit=${limit}`;
+
       const response = await fetch(service, {
-        method: 'GET'
-      })
-      return response.json()
+        method: "GET",
+      });
+
+      return response.json();
     } catch (err) {
-      console.log(err);
+      throw new Error(`Ocurrió un error en ${MeliService.name} al obtener los datos de Meli.\n ${err}`);
     }
   }
 
-  async insert(body: any): Promise<any> {
+  public async insert(list: any[]): Promise<void> {
     try {
-      const dataSource = MongoDatasource.manager;
-
-      dataSource
-        .createQueryBuilder()
-        .insert()
-        .into('MeliStaging')
-        .values(body)
-        .execute()
-
+      list.forEach(async (element: MeliModel) => {
+        const obj: MeliModel = await this.repository.findOne({
+          where: { id: element.id },
+        });
+        if (!obj) {
+          await this.repository.insert(element);
+        } else {
+          await this.repository.update(obj, element);
+        }
+      });
     } catch (err) {
-      console.log(err);
+      throw new Error(
+        "Ocurrió un error al insertar los datos de Meli.\n" + err
+      );
     }
   }
 }
