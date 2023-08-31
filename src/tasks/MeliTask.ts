@@ -12,7 +12,7 @@ export class MeliTask {
     this.colors = colors;
 
     this.progressBarFormat = {
-      format: `MELI IMPORT | Progress {bar} | {percentage}% | {value}/{total}`,
+      format: `MELI IMPORT | Progress [{bar}] | {percentage}% | {value}/{total}`,
       barCompleteChar: "\u2588",
       barIncompleteChar: "\u2591",
       hideCursor: true,
@@ -35,10 +35,10 @@ export class MeliTask {
 
         const meliCode = categries[i]['meliCode'];
         const meliCate = categries[i]['category'];
-        
+
         let result = await meliService.get(meliCode);
 
-        await meliService.insert(result.results);
+        meliService.insert(result.results);
 
         let total = result.paging.total > 1000 ? 1000 : result.paging.total;
 
@@ -53,7 +53,7 @@ export class MeliTask {
           let result = await meliService.get(meliCode, offset, limit);
 
           if (result.results?.length > 0)
-            await meliService.insert(result.results);
+            meliService.insert(result.results);
 
           this.progressBar.update(offset);
         }

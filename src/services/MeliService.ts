@@ -54,11 +54,10 @@ export class MeliService {
       });
 
       if (!obj) {
-        //console.log(`Insertando ${element.id}`);
-        await this.repository.insert(element);
-      } else {
-        //console.log(`Actualizando ${element.id}`);
-        await this.repository.update(obj, element);
+        this.repository.insert(element);
+      }
+      else {
+        this.repository.update(obj, element);
       }
     } catch (err) {
       throw new Error(
