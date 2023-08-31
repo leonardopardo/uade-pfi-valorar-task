@@ -12,11 +12,8 @@ export class MeliService {
 
   private repository: Repository<MeliModel>;
 
-  private elements: MeliModel[];
-
   constructor() {
     this.repository = this.ds.getRepository(MeliModel);
-    this.elements = [];
   }
 
   public async get(
@@ -37,21 +34,35 @@ export class MeliService {
     }
   }
 
-  public async insert(list: any[]): Promise<void> {
+  public async insert(list: MeliModel[]): Promise<void> {
     try {
-      list.forEach(async (element: MeliModel) => {
-        const obj: MeliModel = await this.repository.findOne({
-          where: { id: element.id },
-        });
-        if (!obj) {
-          await this.repository.insert(element);
-        } else {
-          await this.repository.update(obj, element);
-        }
-      });
+      for (let i = 0; i < list.length; i++) {
+        const element = list[i];
+        await this.insertOne(element);
+      }
     } catch (err) {
       throw new Error(
-        "Ocurrió un error al insertar los datos de Meli.\n" + err
+        `Ocurrió un error al insertar los datos de ${MeliService.name}.\n ${err}`
+      );
+    }
+  }
+
+  private async insertOne(element: MeliModel): Promise<void> {
+    try {
+      const obj: MeliModel = await this.repository.findOne({
+        where: { id: element.id },
+      });
+
+      if (!obj) {
+        //console.log(`Insertando ${element.id}`);
+        await this.repository.insert(element);
+      } else {
+        //console.log(`Actualizando ${element.id}`);
+        await this.repository.update(obj, element);
+      }
+    } catch (err) {
+      throw new Error(
+        `Ocurrió un error al insertar los datos en ${MeliService.name} .\n  ${err}`
       );
     }
   }

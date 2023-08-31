@@ -1,12 +1,15 @@
-import { Column, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('MeliStaging')
 export class MeliModel {
-  @PrimaryColumn()
+  @ObjectIdColumn()
+  uuid: ObjectID;
+
+  @Column({ unique: true })
   id: string;
 
-  @Column()
-  title: string;
+  // @Column()
+  // title: string;
 
   // @Column()
   // condition:string
@@ -113,6 +116,9 @@ export class MeliModel {
   // @Column()
   // inventory_id:number
 
+  @CreateDateColumn()
+  created_at: Date;
+
   @UpdateDateColumn()
-  last_update: Date;
+  updated_at: Date;
 }

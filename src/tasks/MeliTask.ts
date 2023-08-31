@@ -2,12 +2,14 @@ import { CategoriesMapper } from "../mapper/CategoriesMapper";
 import { MeliService } from "../services/MeliService";
 
 export class MeliTask {
+  private colors: any;
   private progressBar: any;
   private progressBarFormat: any;
 
   constructor() {
     const cliProgress = require("cli-progress");
     const colors = require("ansi-colors");
+    this.colors = colors;
 
     this.progressBarFormat = {
       format: `MELI IMPORT | Progress {bar} | {percentage}% | {value}/{total}`,
@@ -21,7 +23,7 @@ export class MeliTask {
   // TODO: chango for real uses.
   public async run(): Promise<void> {
     try {
-      const categries: Object[] = CategoriesMapper;
+      const categries: any = CategoriesMapper;
 
       const meliService: MeliService = new MeliService();
 
@@ -29,30 +31,44 @@ export class MeliTask {
 
       let limit: number = 50;
 
-      let result = await meliService.get("MLA1467");
+      for (let i = 0; i < categries.length; i++) {
 
-      await meliService.insert(result.results);
+        const meliCode = categries[i]['meliCode'];
+        const meliCate = categries[i]['category'];
+        
+        let result = await meliService.get(meliCode);
 
-      //   let total = result.paging.total > 1000 ? 1000 : result.paging.total;
+        await meliService.insert(result.results);
 
-      //   iterations = Math.ceil(total / limit);
+        let total = result.paging.total > 1000 ? 1000 : result.paging.total;
 
-      //   this.progressBar.start(total, 0);
+        iterations = Math.ceil(total / limit);
 
-      //   for (let i = 1; i <= iterations; i++) {
-      //     let offset = i * limit;
-      //     let result = await meliService.get("MLA1467", offset, limit);
+        this.progressBar.start(total, 0);
 
-      //     if (result.results?.length > 0)
-      //       await meliService.insert(result.results);
+        for (let i = 1; i <= iterations; i++) {
 
-      //     this.progressBar.update(offset);
-      //   }
+          let offset = i * limit;
 
-      //   this.progressBar.stop();
+          let result = await meliService.get(meliCode, offset, limit);
+
+          if (result.results?.length > 0)
+            await meliService.insert(result.results);
+
+          this.progressBar.update(offset);
+        }
+
+        console.log(this.colors.blue(` | CATEGORIA ${meliCate} FINALIZADA`));
+
+      }
+
+      this.progressBar.stop();
+
+      console.log(this.colors.green("\n MELI IMPORT FINALIZADO"));
+
     } catch (err) {
       throw new Error(
-        `Ocurrió un error en ${MeliTask.name} para inserción en los datos de Meli. \n ${err}`
+        `Ocurrió un error en ${MeliTask.name} para inserción en los datos de Meli. \n ${err.message}`
       );
     }
   }

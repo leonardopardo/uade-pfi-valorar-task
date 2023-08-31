@@ -38,8 +38,6 @@ class App {
 
     const MongoDataSource: DataSource = MongoDatasource;
     MongoDataSource.initialize();
-
-    new MeliTask().run();
   }
 
   private initializeRoutes() {
