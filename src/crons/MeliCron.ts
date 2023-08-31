@@ -2,6 +2,8 @@ import { MeliTask } from "../tasks/MeliTask";
 
 const cron = require('node-cron');
 
-cron.schedule('* * * * *', () => {
+export const task = cron.schedule('*/10 * * * *', () => {
     new MeliTask().run();
+}, {
+    scheduled: false,
 });

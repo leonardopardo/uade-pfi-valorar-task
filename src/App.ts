@@ -10,6 +10,7 @@ import { MeliRouter } from "./routes/MeliRouter";
 import { CabapropRouter } from "./routes/CabapropRouter";
 import { CabapropTask } from "./tasks/CabapropTask";
 import { MeliTask } from "./tasks/MeliTask";
+import { task } from "./crons/MeliCron";
 
 class App {
   public app: express.Application;
@@ -40,6 +41,8 @@ class App {
     // initialize mongo
     const MongoDataSource: DataSource = MongoDatasource;
     MongoDataSource.initialize();
+
+    task.start();
   }
 
   private initializeRoutes() {
