@@ -33,9 +33,11 @@ class App {
     // initialize resources
     this.initializeRoutes();
 
+    // initialize postgres
     const PostgresDataSource: DataSource = PsqlDatasource;
     PostgresDataSource.initialize();
 
+    // initialize mongo
     const MongoDataSource: DataSource = MongoDatasource;
     MongoDataSource.initialize();
   }
