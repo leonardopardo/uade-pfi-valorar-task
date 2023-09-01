@@ -41,10 +41,10 @@ class App {
     const MongoDataSource: DataSource = MongoDatasource;
     MongoDataSource.initialize();
 
-    //new MeliTask().run();
+    new MeliTask().run();
 
     // initialize cron
-    //task.start();
+    task.start();
   }
 
   private initializeRoutes() {
