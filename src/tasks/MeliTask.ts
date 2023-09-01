@@ -20,7 +20,6 @@ export class MeliTask {
     this.progressBar = new cliProgress.SingleBar({}, this.progressBarFormat);
   }
 
-  // TODO: chango for real uses.
   public async run(): Promise<void> {
     try {
       const categries: any = CategoriesMapper;
@@ -42,7 +41,7 @@ export class MeliTask {
           
         meliService.insert(result.results);
 
-        let total = result.paging.total > 1000 ? 1000 : result.paging.total;
+        let total = result.paging.total; //> 1000 ? 1000 : result.paging.total;
 
         iterations = Math.ceil(total / limit);
 

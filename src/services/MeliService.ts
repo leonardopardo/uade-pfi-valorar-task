@@ -16,6 +16,7 @@ export class MeliService {
     this.repository = this.ds.getRepository(MeliModel);
   }
 
+  // GET
   public async get(
     category: string,
     offset: number = 0,
@@ -26,6 +27,9 @@ export class MeliService {
 
       const response = await fetch(service, {
         method: "GET",
+        headers: {
+          'Authorization': `Bearer ${process.env.SERVICE_MELI_TOKEN}`
+        }
       });
 
       return response.json();
@@ -34,6 +38,7 @@ export class MeliService {
     }
   }
 
+  // INSERT
   public async insert(list: MeliModel[]): Promise<void> {
     try {
       for (let i = 0; i < list.length; i++) {
@@ -47,6 +52,7 @@ export class MeliService {
     }
   }
 
+  // INSERT ONE
   private async insertOne(element: MeliModel): Promise<void> {
     try {
       const obj: MeliModel = await this.repository.findOne({
