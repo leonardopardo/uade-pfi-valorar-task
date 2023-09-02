@@ -9,7 +9,8 @@ import "reflect-metadata";
 import { MeliRouter } from "./routes/MeliRouter";
 import { CabapropRouter } from "./routes/CabapropRouter";
 import { MeliTask } from "./tasks/MeliTask";
-import { task } from "./crons/MeliCron";
+import { meliCron } from "./crons/MeliCron";
+import { tokenCron } from "./crons/MeliRefreshTokenCron";
 
 class App {
   public app: express.Application;
@@ -41,10 +42,12 @@ class App {
     const MongoDataSource: DataSource = MongoDatasource;
     MongoDataSource.initialize();
 
+    // initialize task
     new MeliTask().run();
 
     // initialize cron
-    task.start();
+    meliCron.start();
+    tokenCron.start();
   }
 
   private initializeRoutes() {

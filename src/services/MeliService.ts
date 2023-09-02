@@ -2,6 +2,7 @@ import * as fetch from "node-fetch";
 import { MongoDatasource } from "../MyDataSoure";
 import { DataSource, Repository } from "typeorm";
 import { MeliModel } from "../models/MeliModel";
+import { MeliTokenService } from "./MeliTokenService";
 
 export class MeliService {
   private baseUrl: string = process.env.SERVICE_MELI_BASE_PATH;
@@ -17,18 +18,23 @@ export class MeliService {
   }
 
   // GET
-  public async get(
+  async get(
     category: string,
     offset: number = 0,
     limit: number = 50
   ): Promise<any> {
     try {
+
+      const tokenService: MeliTokenService  = new MeliTokenService();
+      
+      const token = await tokenService.getToken();
+      
       const service = `${this.baseUrl}category=${category}&city=${this.city}&offset=${offset}&limit=${limit}`;
 
       const response = await fetch(service, {
         method: "GET",
         headers: {
-          'Authorization': `Bearer ${process.env.SERVICE_MELI_TOKEN}`
+          'Authorization': `Bearer ${token.access_token}`
         }
       });
 
@@ -39,7 +45,7 @@ export class MeliService {
   }
 
   // INSERT
-  public async insert(list: MeliModel[]): Promise<void> {
+  async insert(list: MeliModel[]): Promise<void> {
     try {
       for (let i = 0; i < list.length; i++) {
         const element = list[i];
