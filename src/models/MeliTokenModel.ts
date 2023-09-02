@@ -1,9 +1,12 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('MeliToken')
+@Entity({name: 'MeliToken'})
 export class MeliTokenModel{
 
-    @PrimaryColumn()
+    @ObjectIdColumn()
+    uuid: ObjectID;
+
+    @Column()
     user_id:number
 
     @Column()

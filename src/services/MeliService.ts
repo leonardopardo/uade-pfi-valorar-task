@@ -24,7 +24,6 @@ export class MeliService {
     limit: number = 50
   ): Promise<any> {
     try {
-
       const tokenService: MeliTokenService  = new MeliTokenService();
       
       const token = await tokenService.getToken();

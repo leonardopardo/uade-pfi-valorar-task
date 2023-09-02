@@ -1,9 +1,7 @@
 import * as fetch from "node-fetch";
 import { MongoDatasource } from "../MyDataSoure";
 import { DataSource, Repository } from "typeorm";
-import { MeliModel } from "../models/MeliModel";
 import { MeliTokenModel } from "../models/MeliTokenModel";
-import { get } from "http";
 
 export class MeliTokenService {
   private baseUrl: string = process.env.SERVICE_MELI_BASE_PATH;
@@ -12,7 +10,7 @@ export class MeliTokenService {
 
   private ds: DataSource = MongoDatasource;
 
-  private repository: Repository<MeliTokenModel>;
+  private repository: Repository<MeliTokenModel>;x
 
   constructor() {
     this.repository = this.ds.getRepository(MeliTokenModel);
@@ -63,9 +61,8 @@ export class MeliTokenService {
       token.refresh_token = data.refresh_token;
 
       await this.repository.update(token.user_id, token);
-      
-      return token;
 
+      return token;
     } catch (err) {
       throw new Error(
         `Ocurrió un error en ${MeliTokenService.name} al obtener los datos de Meli.\n ${err}`
