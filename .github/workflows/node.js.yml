@@ -20,6 +20,7 @@ jobs:
 
       - name: Deploy to DigitalOcean
         run: |
-          ssh ${{ secrets.DIGITALOCEAN_USER }}@${{ secrets.DIGITALOCEAN_HOST }} 'sh /var/repos/.deploy/taks.sh'
+          ${{secrets.SSH_PRIVATE_KEY}} >> ~/.ssh/id_rsa
+          ssh -i ~/.ssh/id_rsa ${{ secrets.DIGITALOCEAN_USER }}@${{ secrets.DIGITALOCEAN_HOST }} 'sh /var/repos/.deploy/task.sh'
           
 
