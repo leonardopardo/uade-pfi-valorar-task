@@ -6,21 +6,19 @@ on:
       - main
 
 jobs:
-  deploy:
+  run_example_job:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-
-      - name: Deploy to DigitalOcean
-        run: |
-          ${{secrets.SSH_PRIVATE_KEY}} >> ~/.ssh/id_rsa
-          ssh -i ~/.ssh/id_rsa ${{ secrets.DIGITALOCEAN_USER }}@${{ secrets.DIGITALOCEAN_HOST }} 'sh /var/repos/.deploy/task.sh'
+    - name: print out example job
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.DIGITALOCEAN_USER }}
+        username: ${{ secrets.DIGITALOCEAN_HOST }}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
+        port: 22
+        command_timeout: 30m
+        script: | 
+          sh /var/repos/.deploy/task.sh
           
 
