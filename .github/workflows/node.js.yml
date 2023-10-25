@@ -16,18 +16,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+          node-version: 18
 
       - name: Deploy to DigitalOcean
         run: |
-          ssh-keyscan -H 162.243.166.100 >> ~/.ssh/known_hosts
-          ssh 162.243.166.100 'sh /var/repos/.deploy/task.sh'
-        env:
-          NODE_ENV: production
+          echo 'Hola Mundo'
 
