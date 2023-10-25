@@ -20,5 +20,6 @@ jobs:
 
       - name: Deploy to DigitalOcean
         run: |
-          echo 'Hola Mundo'
+          ssh ${{ secrets.DIGITALOCEAN_USER }}@${{ secrets.DIGITALOCEAN_HOST }} 'sh /var/repos/.deploy/taks.sh'
+          
 
