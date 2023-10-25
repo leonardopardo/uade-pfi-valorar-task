@@ -35,32 +35,36 @@ class App {
     this.initializeRoutes();
 
     // initialize datasource
-    this.initializeDatasource();
-    
+    this.initializeDatasource().then(() => {
+      // initialize tasks
+      // new MeliTask().run();
+    });
+
     // initialize cron
-    this.initalizeCrons();
+    // this.initalizeCrons();
+
   }
 
-  private initializeRoutes() {
+  private initializeRoutes(): void {
     this.app.use(bodyParser.json());
     this.app.use("/api/v1/", this.router);
     new MeliRouter().routes(this.router);
     new CabapropRouter().routes(this.router);
   }
 
-  private initalizeCrons() {
+  private initalizeCrons(): void {
     meliCron.start();
     tokenCron.start();
   }
 
-  private initializeDatasource() {
+  private async initializeDatasource(): Promise<void> {
     // initialize postgres
     const PostgresDataSource: DataSource = PsqlDatasource;
-    PostgresDataSource.initialize();
+    await PostgresDataSource.initialize();
 
     // initialize mongo
     const MongoDataSource: DataSource = MongoDatasource;
-    MongoDataSource.initialize();
+    await MongoDataSource.initialize();
   }
 
   public listen(): void {

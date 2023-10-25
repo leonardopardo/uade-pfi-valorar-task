@@ -60,18 +60,18 @@
       "google-auth-library": "^8.8.0",
       "jsonwebtoken": "^9.0.0",
       "junk": "^4.0.1",
-      "mongodb": "^3.7.4",
+      "mongodb": "^5.9.1",
       "node-cron": "^3.0.2",
       "node-fetch": "^2.6.11",
       "nodemailer": "^6.9.3",
-      "nodemon": "^2.0.22",
+      "nodemon": "^3.0.1",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "sqlite3": "^5.1.6",
-      "swagger-express-ts": "^1.1.0",
+      "swagger-express-ts": "^1.0.0",
       "swagger-jsdoc": "^6.2.8",
       "swagger-ui-dist": "^5.4.2",
       "swagger-ui-express": "^4.6.2",
-      "typeorm": "0.3.12"
+      "typeorm": "^0.3.17"
    }
 }

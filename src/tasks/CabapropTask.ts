@@ -15,7 +15,9 @@ export class CabapropTask{
         this.progressBar = new cliProgress.SingleBar({}, this.progressBarFormat);
     }
 
-    // TODO: chango for real uses.
+    /**
+     * Run the CabapropTask
+     */
     public async run(): Promise<any> {
         try {
             this.progressBar.start(100, 0);

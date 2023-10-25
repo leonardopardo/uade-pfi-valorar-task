@@ -12,11 +12,11 @@ export class CabapropService {
 
     }
 
-    async get(offset: number = 0, limit: number = 50): Promise<any> {
+    async get(offset: number = 0, limit: number = 12): Promise<any> {
         try {
             
-            const path = `${this.baseUrl}offset=${offset}&limit=${limit}`;
-            
+            const path = `${this.baseUrl}offset=${offset}&limit=${limit}&orderBy=created_at&sort=desc`;
+
             const body = {
                 operationType: 2,
                 propertyTypes: [],
@@ -40,15 +40,17 @@ export class CabapropService {
                 extras: []
             }
 
-            console.log(path);
-
             const response = await fetch(path, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 method: 'POST',
-                body: JSON.stringify(body),
-                ssl: false,
+                body: JSON.stringify(body)
             })
 
-            return response.json();
+            console.log(response);
+
+            return await response.json();
             
     } catch(err) {
         console.log(err);

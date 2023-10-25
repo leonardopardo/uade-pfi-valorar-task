@@ -1,9 +1,9 @@
-import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ObjectId, ObjectIdColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('MeliStaging')
 export class MeliModel {
   @ObjectIdColumn()
-  uuid: ObjectID;
+  uuid: ObjectId;
 
   @Column({ unique: true })
   id: string;

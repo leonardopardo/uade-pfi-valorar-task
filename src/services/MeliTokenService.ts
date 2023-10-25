@@ -4,13 +4,10 @@ import { DataSource, Repository } from "typeorm";
 import { MeliTokenModel } from "../models/MeliTokenModel";
 
 export class MeliTokenService {
-  private baseUrl: string = process.env.SERVICE_MELI_BASE_PATH;
-
-  private city: string = process.env.SERVICE_MELI_CITY;
 
   private ds: DataSource = MongoDatasource;
 
-  private repository: Repository<MeliTokenModel>;x
+  private repository: Repository<MeliTokenModel>;
 
   constructor() {
     this.repository = this.ds.getRepository(MeliTokenModel);
@@ -18,9 +15,12 @@ export class MeliTokenService {
 
   async getToken(): Promise<MeliTokenModel> {
     try {
+
       const token: any = await this.repository.findOne({
         where: { user_id: parseInt(process.env.SERVICE_MELI_USER_ID) },
       });
+
+      if (!token) throw new Error(`No se encontró el token de Meli.`);
 
       return token;
     } catch (err) {

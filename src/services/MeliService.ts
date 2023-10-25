@@ -27,7 +27,7 @@ export class MeliService {
       const tokenService: MeliTokenService  = new MeliTokenService();
       
       const token = await tokenService.getToken();
-      
+
       const service = `${this.baseUrl}category=${category}&city=${this.city}&offset=${offset}&limit=${limit}`;
 
       const response = await fetch(service, {

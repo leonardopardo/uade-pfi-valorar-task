@@ -20,8 +20,12 @@ export class MeliTask {
     this.progressBar = new cliProgress.SingleBar({}, this.progressBarFormat);
   }
 
+  /**
+   * Run the MeliTask
+   */
   public async run(): Promise<void> {
     try {
+
       const categries: any = CategoriesMapper;
 
       const meliService: MeliService = new MeliService();
@@ -33,6 +37,7 @@ export class MeliTask {
       for (let i = 0; i < categries.length; i++) {
 
         const meliCode = categries[i]['meliCode'];
+        
         const meliCate = categries[i]['category'];
 
         let result = await meliService.get(meliCode);
@@ -68,9 +73,11 @@ export class MeliTask {
       console.log(this.colors.green("\n MELI IMPORT FINALIZADO"));
 
     } catch (err) {
+
       throw new Error(
         `Ocurrió un error en ${MeliTask.name} para inserción en los datos de Meli. \n ${err.message}`
       );
+
     }
   }
 }
