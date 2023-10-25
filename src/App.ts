@@ -12,6 +12,7 @@ import { MeliTask } from "./tasks/MeliTask";
 import { meliCron } from "./crons/MeliCron";
 import { tokenCron } from "./crons/MeliRefreshTokenCron";
 import { CabapropTask } from "./tasks/CabapropTask";
+import { cabapropCron } from "./crons/CabapropCron";
 
 class App {
   public app: express.Application;
@@ -52,6 +53,7 @@ class App {
 
   private initalizeCrons(): void {
     meliCron.start();
+    cabapropCron.start();
     tokenCron.start();
   }
 
