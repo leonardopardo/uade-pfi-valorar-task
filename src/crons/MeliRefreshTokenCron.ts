@@ -9,7 +9,7 @@ export const tokenCron = cron.schedule(
     meliTokenService
       .refreshToken()
       .then((result) => {
-        console.log(`Token refreshed ${new Date()}`);
+        console.log(`Token refreshed ${new Date()}\n${result}`);
       })
       .catch((err) => {
         console.log(err);

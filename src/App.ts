@@ -11,6 +11,7 @@ import { CabapropRouter } from "./routes/CabapropRouter";
 import { MeliTask } from "./tasks/MeliTask";
 import { meliCron } from "./crons/MeliCron";
 import { tokenCron } from "./crons/MeliRefreshTokenCron";
+import { CabapropTask } from "./tasks/CabapropTask";
 
 class App {
   public app: express.Application;
@@ -36,13 +37,10 @@ class App {
 
     // initialize datasource
     this.initializeDatasource().then(() => {
-      // initialize tasks
-      // new MeliTask().run();
+      this.initalizeCrons();
+    }).catch((err) => {
+      console.log(`Ocurrió un error al conectarse con la base de datos ${err}`);
     });
-
-    // initialize cron
-    // this.initalizeCrons();
-
   }
 
   private initializeRoutes(): void {

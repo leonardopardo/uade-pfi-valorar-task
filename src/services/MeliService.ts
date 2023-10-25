@@ -17,15 +17,21 @@ export class MeliService {
     this.repository = this.ds.getRepository(MeliModel);
   }
 
-  // GET
+  /**
+   * Obtiene los datos de Meli.
+   * @param category
+   * @param offset
+   * @param limit
+   * @returns
+   */
   async get(
     category: string,
     offset: number = 0,
     limit: number = 50
   ): Promise<any> {
     try {
-      const tokenService: MeliTokenService  = new MeliTokenService();
-      
+      const tokenService: MeliTokenService = new MeliTokenService();
+
       const token = await tokenService.getToken();
 
       const service = `${this.baseUrl}category=${category}&city=${this.city}&offset=${offset}&limit=${limit}`;
@@ -33,17 +39,22 @@ export class MeliService {
       const response = await fetch(service, {
         method: "GET",
         headers: {
-          'Authorization': `Bearer ${token.access_token}`
-        }
+          Authorization: `Bearer ${token.access_token}`,
+        },
       });
 
       return response.json();
     } catch (err) {
-      throw new Error(`Ocurrió un error en ${MeliService.name} al obtener los datos de Meli.\n ${err}`);
+      throw new Error(
+        `Ocurrió un error en ${MeliService.name} al obtener los datos de Meli.\n ${err}`
+      );
     }
   }
 
-  // INSERT
+  /**
+   * Inserta un listado de elementos en la base de datos.
+   * @param list
+   */
   async insert(list: MeliModel[]): Promise<void> {
     try {
       for (let i = 0; i < list.length; i++) {
@@ -57,8 +68,11 @@ export class MeliService {
     }
   }
 
-  // INSERT ONE
-  private async insertOne(element: MeliModel): Promise<void> {
+  /**
+   * Inserta un elmento en la base de datos.
+   * @param element
+   */
+  async insertOne(element: MeliModel): Promise<void> {
     try {
       const obj: MeliModel = await this.repository.findOne({
         where: { id: element.id },
@@ -66,8 +80,7 @@ export class MeliService {
 
       if (!obj) {
         this.repository.insert(element);
-      }
-      else {
+      } else {
         this.repository.update(obj, element);
       }
     } catch (err) {

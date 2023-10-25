@@ -4,6 +4,7 @@ import path = require('path');
 import { DataSource } from "typeorm";
 import { MeliModel } from "./models/MeliModel";
 import { MeliTokenModel } from "./models/MeliTokenModel";
+import { CabapropModel } from "./models/CabapropModel";
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env')
@@ -34,6 +35,7 @@ const MongoDatasource = new DataSource({
   logging: false,
   entities: [
     MeliModel,
+    CabapropModel,
     MeliTokenModel
   ],
   migrations: ["src/migration/**/*.ts"],

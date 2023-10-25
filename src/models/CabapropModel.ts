@@ -1,12 +1,9 @@
-import { Entity, ObjectIdColumn, ObjectId, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, ObjectIdColumn, ObjectId, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('CabapropStaging')
 export class CabapropModel {
   @ObjectIdColumn()
-  uuid: ObjectId;
-
-  @Column({ unique: true })
-  id: string;
+  _id: ObjectId;
 
   @CreateDateColumn()
   created_at: Date;
