@@ -8,6 +8,7 @@ import path = require("path");
 import "reflect-metadata";
 import { MeliRouter } from "./routes/MeliRouter";
 import { CabapropRouter } from "./routes/CabapropRouter";
+import { SentimentRouter } from "./routes/SentimentRouter";
 import { MeliTask } from "./tasks/MeliTask";
 import { meliCron } from "./crons/MeliCron";
 import { tokenCron } from "./crons/MeliRefreshTokenCron";
@@ -53,6 +54,7 @@ class App {
     this.app.use("/api/v1/", this.router);
     new MeliRouter().routes(this.router);
     new CabapropRouter().routes(this.router);
+    new SentimentRouter().routes(this.router)
   }
 
   /**
