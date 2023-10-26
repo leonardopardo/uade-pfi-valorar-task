@@ -10,6 +10,7 @@ export class MeliRouter {
   }
 
   public routes(router: Router): void {
-    router.get(`${this.prefix}/taks/run`, this.controller.index);
+    router.get(`${this.prefix}/tasks/run`, this.controller.index);
+    router.get(`${this.prefix}/tasks/process`, this.controller.process);
   }
 }
