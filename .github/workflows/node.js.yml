@@ -15,7 +15,7 @@ jobs:
       with:
         host: ${{ secrets.DIGITALOCEAN_USER }}
         username: ${{ secrets.DIGITALOCEAN_HOST }}
-        key: ${{secrets.DIGITALOCEAN_KEY}}
+        password: ${{ secrets.DIGITALOCEAN_PASS }}
         port: 22
         script: | 
           sh /var/repos/.deploy/task.sh
