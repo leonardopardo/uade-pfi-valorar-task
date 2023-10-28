@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Deploy DigitalOcean
+      - name: Deploy API
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.DIGITALOCEAN_HOST }}
