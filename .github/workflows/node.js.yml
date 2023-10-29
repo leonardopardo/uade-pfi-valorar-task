@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Deploy API
+      - name: Deploy TASK
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.DIGITALOCEAN_HOST }}
@@ -18,4 +18,4 @@ jobs:
           password: ${{ secrets.DIGITALOCEAN_PASS }}
           port: ${{ secrets.DIGITALOCEAN_PORT }}
           script: |
-            sh /var/repos/.deploy/api.sh
+            sh /var/repos/.deploy/task.sh
