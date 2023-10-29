@@ -1,3 +1,4 @@
+import { SentimentTask } from './tasks/SentimentTask';
 import * as express from "express";
 import * as dotenv from "dotenv";
 import * as cors from "cors";
@@ -14,6 +15,7 @@ import { meliCron } from "./crons/MeliCron";
 import { tokenCron } from "./crons/MeliRefreshTokenCron";
 import { CabapropTask } from "./tasks/CabapropTask";
 import { cabapropCron } from "./crons/CabapropCron";
+import { sentimentCron } from "./crons/SentimentCron";
 
 class App {
   public app: express.Application;
@@ -41,6 +43,7 @@ class App {
     this.initializeDatasource().then(() => {
       // initialize tasks
       this.initalizeCrons();
+      new SentimentTask().run();
     }).catch((err) => {
       console.log(`Ocurrió un error al conectarse con la base de datos ${err}`);
     });
@@ -64,6 +67,7 @@ class App {
     meliCron.start();
     cabapropCron.start();
     tokenCron.start();
+    sentimentCron.start();
   }
 
   /**

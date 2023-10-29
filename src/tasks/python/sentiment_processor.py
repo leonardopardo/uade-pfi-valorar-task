@@ -26,7 +26,6 @@ UAS = ("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1
        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36",
        )
 
-
 def source_clarin():
     url = "https://www.clarin.com/tema/alquileres.html"
 
@@ -186,9 +185,6 @@ def source_ln():
     else:
         print(f"Failed to retrieve the page. Status code: {response.status_code}")
 
-
-
-
 # Extraemos las notas de clarin en relación a los alquileres
 print("Obteniendo información de Clarin...")
 clarin_items = source_clarin()
@@ -209,7 +205,22 @@ ambito_items = source_ambito()
 print("Obteniendo información de La Nación...")
 ln_items = source_ln()
 
-full_list = clarin_items + p12_items + infobae_items + ambito_items + ln_items
+full_list = list()
+
+if clarin_items:
+    full_list += clarin_items
+
+if p12_items:
+    full_list += p12_items 
+
+if infobae_items:
+    full_list += infobae_items 
+
+if ambito_items:
+    full_list += ambito_items 
+
+if ln_items:
+    full_list += ln_items
 
 # Obtenemos las variables de entorno
 PATH = os.getcwd()

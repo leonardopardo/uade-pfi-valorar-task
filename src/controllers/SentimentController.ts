@@ -11,7 +11,6 @@ export class SentimentController {
 
   async index(req: Request, res: Response): Promise<any> {
     try {
-      this.sentimentTask.run();
       res.status(200).send(`${SentimentController.name} works!`);
     } catch (err) {
       res.status(500).send(err);

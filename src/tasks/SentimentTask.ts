@@ -9,7 +9,6 @@ export class SentimentTask {
 
     constructor() {
       this.path = path.resolve(__dirname);
-      this.run()
     }
   
     async run(): Promise<any> {
@@ -23,7 +22,6 @@ export class SentimentTask {
           `python3 ${this.path}/python/sentiment_processor.py`
         );
         
-        console.log(result.toString())
         return result.toString();
       } catch (err) {
         console.log(err);
