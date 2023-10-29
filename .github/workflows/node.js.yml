@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run_example_job:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
