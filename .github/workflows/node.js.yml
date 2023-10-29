@@ -6,19 +6,16 @@ on:
       - main
 
 jobs:
-  deploy:
+  run_example_job:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Deploy API
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          node-version: 18
-
-      - name: Deploy to DigitalOcean
-        run: |
-          echo 'Hola Mundo'
-
+          host: ${{ secrets.DIGITALOCEAN_HOST }}
+          username: ${{ secrets.DIGITALOCEAN_USER }}
+          password: ${{ secrets.DIGITALOCEAN_PASS }}
+          port: ${{ secrets.DIGITALOCEAN_PORT }}
+          script: |
+            sh /var/repos/.deploy/api.sh

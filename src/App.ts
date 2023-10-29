@@ -39,12 +39,16 @@ class App {
 
     // initialize datasource
     this.initializeDatasource().then(() => {
+      // initialize tasks
       this.initalizeCrons();
     }).catch((err) => {
       console.log(`Ocurrió un error al conectarse con la base de datos ${err}`);
     });
   }
 
+  /**
+   * Inicializa las rutas de la aplicación.
+   */
   private initializeRoutes(): void {
     this.app.use(bodyParser.json());
     this.app.use("/api/v1/", this.router);
@@ -53,12 +57,18 @@ class App {
     new SentimentRouter().routes(this.router)
   }
 
+  /**
+   * Inicializa las tareas de la aplicación.
+   */
   private initalizeCrons(): void {
     meliCron.start();
     cabapropCron.start();
     tokenCron.start();
   }
 
+  /**
+   * Inicializa los datasources de la aplicación.
+   */
   private async initializeDatasource(): Promise<void> {
     // initialize postgres
     const PostgresDataSource: DataSource = PsqlDatasource;
